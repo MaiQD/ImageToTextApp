@@ -36,7 +36,8 @@ namespace ImageToTextApp
 			this.btnSelectImg = new System.Windows.Forms.Button();
 			this.btnGetFromClipboard = new System.Windows.Forms.Button();
 			this.btnExport = new System.Windows.Forms.Button();
-			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.txtRes = new System.Windows.Forms.TextBox();
+			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
 			this.panel1.SuspendLayout();
 			this.panel2.SuspendLayout();
 			this.panel3.SuspendLayout();
@@ -53,10 +54,10 @@ namespace ImageToTextApp
 			// 
 			// panel2
 			// 
-			this.panel2.Controls.Add(this.textBox1);
+			this.panel2.Controls.Add(this.txtRes);
 			this.panel2.Location = new System.Drawing.Point(431, 12);
 			this.panel2.Name = "panel2";
-			this.panel2.Size = new System.Drawing.Size(408, 591);
+			this.panel2.Size = new System.Drawing.Size(668, 591);
 			this.panel2.TabIndex = 1;
 			// 
 			// panel3
@@ -87,6 +88,7 @@ namespace ImageToTextApp
 			this.btnSelectImg.TabIndex = 0;
 			this.btnSelectImg.Text = "Select Image";
 			this.btnSelectImg.UseVisualStyleBackColor = true;
+			this.btnSelectImg.Click += new System.EventHandler(this.btnSelectImg_Click);
 			// 
 			// btnGetFromClipboard
 			// 
@@ -106,21 +108,26 @@ namespace ImageToTextApp
 			this.btnExport.TabIndex = 2;
 			this.btnExport.Text = "Export to Text";
 			this.btnExport.UseVisualStyleBackColor = true;
+			this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
 			// 
-			// textBox1
+			// txtRes
 			// 
-			this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.textBox1.Location = new System.Drawing.Point(0, 0);
-			this.textBox1.Multiline = true;
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(408, 591);
-			this.textBox1.TabIndex = 0;
+			this.txtRes.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.txtRes.Location = new System.Drawing.Point(0, 0);
+			this.txtRes.Multiline = true;
+			this.txtRes.Name = "txtRes";
+			this.txtRes.Size = new System.Drawing.Size(668, 591);
+			this.txtRes.TabIndex = 0;
+			// 
+			// openFileDialog1
+			// 
+			this.openFileDialog1.FileName = "openFileDialog1";
 			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(856, 615);
+			this.ClientSize = new System.Drawing.Size(1111, 615);
 			this.Controls.Add(this.panel3);
 			this.Controls.Add(this.panel2);
 			this.Controls.Add(this.panel1);
@@ -144,7 +151,8 @@ namespace ImageToTextApp
 		private System.Windows.Forms.Button btnExport;
 		private System.Windows.Forms.Button btnGetFromClipboard;
 		private System.Windows.Forms.Button btnSelectImg;
-		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.TextBox txtRes;
+		private System.Windows.Forms.OpenFileDialog openFileDialog1;
 	}
 }
 
