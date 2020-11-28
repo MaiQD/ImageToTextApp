@@ -16,5 +16,11 @@ namespace ImageToTextApp
 		{
 			InitializeComponent();
 		}
+
+		private void btnGetFromClipboard_Click(object sender, EventArgs e)
+		{
+			var img = Clipboard.GetImage();
+			picBox.Image = img;
+		}
 	}
 }
