@@ -1,4 +1,5 @@
 ﻿using IronOcr;
+using Patagames.Ocr;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,21 +23,23 @@ namespace ImageToTextApp
 		{
 			var img = Clipboard.GetImage();
 			picBox.Image = img;
-			IronOcr.Installation.LicenseKey = "IRONOCR-MYLICENSE-KEY-1EF01";
+			//Installation.LicenseKey = "IRONOCR-MYLICENSE-KEY-1EF01";
 		}
 
 		private void btnExport_Click(object sender, EventArgs e)
 		{
 			try
 			{
-				
-				var ocr = new IronTesseract();
-
-				using (Image img = picBox.Image)
+				using (var objOdr =  OcrApi.Create())
 				{
-					OcrInput ocrInput = new OcrInput(img);
-					var text = ocr.Read(ocrInput).Text;
-					txtRes.Text = text;
+					objOdr.Init(language: Patagames.Ocr.Enums.Languages.English);
+					using (var bitMap = new Bitmap(picBox.Image))
+					{
+						string plaintext = objOdr.GetTextFromImage(bitMap);
+						this.txtRes.Text = plaintext;
+					}
+					
+
 				}
 				
 			}
