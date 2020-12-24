@@ -22,7 +22,7 @@ namespace ImageToTextApp
 		{
 			var img = Clipboard.GetImage();
 			picBox.Image = img;
-			IronOcr.Installation.LicenseKey = "IRONOCR-MYLICENSE-KEY-1EF01";
+			//IronOcr.Installation.LicenseKey = "IRONOCR-MYLICENSE-KEY-1EF01";
 		}
 
 		private void btnExport_Click(object sender, EventArgs e)
@@ -37,6 +37,7 @@ namespace ImageToTextApp
 					OcrInput ocrInput = new OcrInput(img);
 					var text = ocr.Read(ocrInput).Text;
 					txtRes.Text = text;
+					picBox.Image = null;
 				}
 				
 			}
@@ -64,6 +65,11 @@ namespace ImageToTextApp
 				
 
 			}
+
+		}
+
+		private void picBox_Click(object sender, EventArgs e)
+		{
 
 		}
 	}
