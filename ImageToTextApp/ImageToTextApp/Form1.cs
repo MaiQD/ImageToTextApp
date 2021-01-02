@@ -1,4 +1,5 @@
-﻿using IronOcr;
+﻿using ImageToTextApp.Models;
+using IronOcr;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,9 +14,19 @@ namespace ImageToTextApp
 {
 	public partial class Form1 : Form
 	{
+		private List<Language> _languages; 
 		public Form1()
 		{
 			InitializeComponent();
+			_languages =  new List<Language>
+			{
+				new	Language(1, "English"),
+				new Language(2, "Vietnamese"),
+				new Language(3, "Japanese"),
+				new Language(4, "Chinese Simplified"),
+				new Language(4, "Chinese Traditional")
+			};
+			SetDDLLanguages();
 		}
 
 		private void btnGetFromClipboard_Click(object sender, EventArgs e)
@@ -29,24 +40,24 @@ namespace ImageToTextApp
 		{
 			try
 			{
-				
-				var ocr = new IronTesseract();
-
-				using (Image img = picBox.Image)
+				txtRes.BeginInvoke(new Action(() =>
 				{
-					OcrInput ocrInput = new OcrInput(img);
-					var text = ocr.Read(ocrInput).Text;
-					txtRes.Text = text;
-					picBox.Image = null;
-				}
-				
+					var ocr = new IronTesseract();
+					ocr.SetLanguage((int)this.cbxLanguages.SelectedValue);
+					using (Image img = (Image)picBox.Image.Clone())
+					{
+						OcrInput ocrInput = new OcrInput(img);
+						var text = ocr.Read(ocrInput).Text;
+						txtRes.Text = text;
+					}
+				}));
 			}
 			catch (Exception ex)
 			{
 
 				MessageBox.Show(ex.Message, "Có lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
-			
+
 		}
 
 		private void btnSelectImg_Click(object sender, EventArgs e)
@@ -62,7 +73,7 @@ namespace ImageToTextApp
 
 					MessageBox.Show("Phải chọn file hình ảnh", "Có lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				}
-				
+
 
 			}
 
@@ -72,5 +83,36 @@ namespace ImageToTextApp
 		{
 
 		}
+
+		private void btnPin_Click(object sender, EventArgs e)
+		{
+			this.TopMost = !this.TopMost;
+			ToggleButtonPin();
+
+		}
+		private void ToggleButtonPin()
+		{
+			if (this.TopMost)
+			{
+				btnPin.ForeColor = Color.Black;
+				btnPin.BackColor = Color.LightGreen;
+			}
+			else
+			{
+				btnPin.ForeColor = Color.Snow;
+				btnPin.BackColor = Color.Red;
+			}
+		}
+		#region Fuction
+
+		private void btnCopyToClipboard_Click(object sender, EventArgs e) => Clipboard.SetText(this.txtRes.Text);
+		private void SetDDLLanguages()
+		{
+			cbxLanguages.DataSource = _languages;
+			cbxLanguages.DisplayMember = "LanguageName";
+			cbxLanguages.ValueMember = "ID";
+		}
+		
+		#endregion
 	}
 }
