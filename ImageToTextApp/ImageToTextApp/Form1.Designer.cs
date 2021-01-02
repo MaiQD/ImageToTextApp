@@ -1,7 +1,7 @@
 ﻿
 namespace ImageToTextApp
 {
-	partial class Form1
+	partial class frmMain
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -34,13 +34,14 @@ namespace ImageToTextApp
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.txtRes = new System.Windows.Forms.TextBox();
 			this.panel3 = new System.Windows.Forms.Panel();
+			this.cbxLanguages = new System.Windows.Forms.ComboBox();
+			this.btnCopyToClipboard = new System.Windows.Forms.Button();
 			this.btnPin = new System.Windows.Forms.Button();
 			this.btnExport = new System.Windows.Forms.Button();
 			this.btnGetFromClipboard = new System.Windows.Forms.Button();
 			this.btnSelectImg = new System.Windows.Forms.Button();
 			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-			this.btnCopyToClipboard = new System.Windows.Forms.Button();
-			this.cbxLanguages = new System.Windows.Forms.ComboBox();
+			this.progressBar1 = new System.Windows.Forms.ProgressBar();
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
 			this.panel2.SuspendLayout();
@@ -65,10 +66,10 @@ namespace ImageToTextApp
 			this.picBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
 			this.picBox.TabIndex = 0;
 			this.picBox.TabStop = false;
-			this.picBox.Click += new System.EventHandler(this.picBox_Click);
 			// 
 			// panel2
 			// 
+			this.panel2.Controls.Add(this.progressBar1);
 			this.panel2.Controls.Add(this.txtRes);
 			this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.panel2.Location = new System.Drawing.Point(0, 438);
@@ -99,6 +100,25 @@ namespace ImageToTextApp
 			this.panel3.Name = "panel3";
 			this.panel3.Size = new System.Drawing.Size(427, 108);
 			this.panel3.TabIndex = 2;
+			// 
+			// cbxLanguages
+			// 
+			this.cbxLanguages.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cbxLanguages.FormattingEnabled = true;
+			this.cbxLanguages.Location = new System.Drawing.Point(12, 12);
+			this.cbxLanguages.Name = "cbxLanguages";
+			this.cbxLanguages.Size = new System.Drawing.Size(404, 24);
+			this.cbxLanguages.TabIndex = 5;
+			// 
+			// btnCopyToClipboard
+			// 
+			this.btnCopyToClipboard.Location = new System.Drawing.Point(258, 46);
+			this.btnCopyToClipboard.Name = "btnCopyToClipboard";
+			this.btnCopyToClipboard.Size = new System.Drawing.Size(76, 46);
+			this.btnCopyToClipboard.TabIndex = 4;
+			this.btnCopyToClipboard.Text = "Copy to Clipboard";
+			this.btnCopyToClipboard.UseVisualStyleBackColor = true;
+			this.btnCopyToClipboard.Click += new System.EventHandler(this.btnCopyToClipboard_Click);
 			// 
 			// btnPin
 			// 
@@ -147,26 +167,16 @@ namespace ImageToTextApp
 			// 
 			this.openFileDialog1.FileName = "openFileDialog1";
 			// 
-			// btnCopyToClipboard
+			// progressBar1
 			// 
-			this.btnCopyToClipboard.Location = new System.Drawing.Point(258, 46);
-			this.btnCopyToClipboard.Name = "btnCopyToClipboard";
-			this.btnCopyToClipboard.Size = new System.Drawing.Size(76, 46);
-			this.btnCopyToClipboard.TabIndex = 4;
-			this.btnCopyToClipboard.Text = "Copy to Clipboard";
-			this.btnCopyToClipboard.UseVisualStyleBackColor = true;
-			this.btnCopyToClipboard.Click += new System.EventHandler(this.btnCopyToClipboard_Click);
+			this.progressBar1.Location = new System.Drawing.Point(0, 0);
+			this.progressBar1.Name = "progressBar1";
+			this.progressBar1.Size = new System.Drawing.Size(427, 23);
+			this.progressBar1.TabIndex = 1;
+			this.progressBar1.Value = 75;
+			this.progressBar1.Visible = false;
 			// 
-			// cbxLanguages
-			// 
-			this.cbxLanguages.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cbxLanguages.FormattingEnabled = true;
-			this.cbxLanguages.Location = new System.Drawing.Point(12, 12);
-			this.cbxLanguages.Name = "cbxLanguages";
-			this.cbxLanguages.Size = new System.Drawing.Size(404, 24);
-			this.cbxLanguages.TabIndex = 5;
-			// 
-			// Form1
+			// frmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -174,8 +184,8 @@ namespace ImageToTextApp
 			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.panel3);
 			this.Controls.Add(this.panel2);
-			this.Name = "Form1";
-			this.Text = "Form1";
+			this.Name = "frmMain";
+			this.Text = "Image to text app";
 			this.panel1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
 			this.panel2.ResumeLayout(false);
@@ -199,6 +209,7 @@ namespace ImageToTextApp
 		private System.Windows.Forms.Button btnPin;
 		private System.Windows.Forms.Button btnCopyToClipboard;
 		private System.Windows.Forms.ComboBox cbxLanguages;
+		private System.Windows.Forms.ProgressBar progressBar1;
 	}
 }
 
