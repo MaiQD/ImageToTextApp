@@ -12,6 +12,7 @@ namespace ImageToTextApp
 	{
 		private List<Language> _languages;
 		private Thread threadProgress;
+
 		public frmMain()
 		{
 			InitializeComponent();
@@ -24,40 +25,22 @@ namespace ImageToTextApp
 				new Language(4, "Chinese Traditional")
 			};
 			SetDDLLanguages();
-			
 		}
 
 		#region Action Control
 
-		private void btnGetFromClipboard_Click(object sender, EventArgs e) => picBox.Image = Clipboard.GetImage();
-
-		private void btnExport_Click(object sender, EventArgs e)
+		private void cropFromScreenToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			try
+			//this.Visible = false;
+			var bmp = SnippingTool.Snip();
+			if (bmp != null)
 			{
-				StartExport();
-				var thread = new Thread(() =>
-				{
-					var ocr = new IronTesseract();
-					ocr.SetLanguage((int)readComboBoxSelected(cbxLanguages));
-					using (Image img = (Image)picBox.Image.Clone())
-					{
-						OcrInput ocrInput = new OcrInput(img);
-						var text = ocr.Read(ocrInput).Text;
-						txtRes.Invoke(new DisplayResultTextDelegate(DisplayResultText), text);
-					}
-				});
-				thread.IsBackground = true;
-				thread.Start();
+				picBox.Image = bmp;
 			}
-			catch (Exception ex)
-			{
-				progressBar1.Visible = false;
-				MessageBox.Show(ex.Message, "Có lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
+			//this.Visible = true;
 		}
 
-		private void btnSelectImg_Click(object sender, EventArgs e)
+		private void selectImageToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			if (openFileDialog1.ShowDialog() == DialogResult.OK)
 			{
@@ -72,7 +55,50 @@ namespace ImageToTextApp
 			}
 		}
 
-		private void btnPin_Click(object sender, EventArgs e)
+		private void getFromClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			picBox.Image = Clipboard.GetImage();
+		}
+
+		private void exportToTextToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				StartExport();
+				var thread = new Thread(() =>
+				{
+					var ocr = new IronTesseract();
+					ocr.SetLanguage((int)readComboBoxSelected(cbxLanguages));
+					using (Image img = (Image)picBox.Image?.Clone())
+					{
+						if (img != null)
+						{
+							OcrInput ocrInput = new OcrInput(img);
+							var text = ocr.Read(ocrInput).Text;
+							txtRes.Invoke(new DisplayResultTextDelegate(DisplayResultText), text);
+						}
+						else
+							txtRes.Invoke(new DisplayResultTextDelegate(DisplayResultText), string.Empty);
+					}
+				});
+				thread.IsBackground = true;
+				thread.Start();
+			}
+			catch (Exception ex)
+			{
+				EndExport();
+				MessageBox.Show(ex.Message, "Có lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+		private void copyToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (string.IsNullOrEmpty(this.txtRes.Text))
+				return;
+			Clipboard.SetText(this.txtRes.Text);
+		}
+
+		private void pinWindowMenuItem_Click(object sender, EventArgs e)
 		{
 			this.TopMost = !this.TopMost;
 			ToggleButtonPin();
@@ -84,31 +110,28 @@ namespace ImageToTextApp
 
 		private void StartExport()
 		{
-			btnSelectImg.Enabled = false;
-			btnGetFromClipboard.Enabled = false;
-			btnExport.Enabled = false;
-			btnCopyToClipboard.Enabled = false;
+			selectImageToolStripMenuItem.Enabled = false;
+			getFromClipboardToolStripMenuItem.Enabled = false;
+			exportToTextToolStripMenuItem.Enabled = false;
+			copyToClipboardToolStripMenuItem.Enabled = false;
 			progressBar1.Visible = true;
 			txtRes.Text = string.Empty;
 			//progress bar
 			threadProgress = new Thread(RunProgressBar);
 			threadProgress.IsBackground = true;
 			threadProgress.Start();
-
 		}
 
 		private void EndExport()
 		{
-			btnSelectImg.Enabled = true;
-			btnGetFromClipboard.Enabled = true;
-			btnExport.Enabled = true;
-			btnCopyToClipboard.Enabled = true;
+			selectImageToolStripMenuItem.Enabled = true;
+			getFromClipboardToolStripMenuItem.Enabled = true;
+			exportToTextToolStripMenuItem.Enabled = true;
+			copyToClipboardToolStripMenuItem.Enabled = true;
 			progressBar1.Visible = false;
 			progressBar1.Value = 0;
 			threadProgress.Abort();
 		}
-
-		private void btnCopyToClipboard_Click(object sender, EventArgs e) => Clipboard.SetText(this.txtRes.Text);
 
 		private void SetDDLLanguages()
 		{
@@ -119,26 +142,24 @@ namespace ImageToTextApp
 
 		private void RunProgressBar()
 		{
-			
 			for (int i = 0; i < 100; i++)
 			{
-				SetValueProgressBar(progressBar1,i);
+				SetValueProgressBar(progressBar1, i);
 				Thread.Sleep(100);
-			}	
-				
-
+			}
 		}
+
 		private void ToggleButtonPin()
 		{
 			if (this.TopMost)
 			{
-				btnPin.ForeColor = Color.Black;
-				btnPin.BackColor = Color.LightGreen;
+				pinWindowMenuItem.ForeColor = Color.Black;
+				pinWindowMenuItem.BackColor = Color.LightGreen;
 			}
 			else
 			{
-				btnPin.ForeColor = Color.Snow;
-				btnPin.BackColor = Color.Red;
+				pinWindowMenuItem.ForeColor = Color.Snow;
+				pinWindowMenuItem.BackColor = Color.Red;
 			}
 		}
 
@@ -170,6 +191,7 @@ namespace ImageToTextApp
 			}
 			else return listbox.SelectedValue;
 		}
+
 		public static object SetValueProgressBar(ProgressBar control, int value)
 		{
 			if (control.InvokeRequired)
@@ -180,8 +202,9 @@ namespace ImageToTextApp
 			{
 				control.Value = value;
 				return null;
-			}	
+			}
 		}
+
 		private delegate void DisplayResultTextDelegate(string text);
 
 		private void DisplayResultText(string text)
