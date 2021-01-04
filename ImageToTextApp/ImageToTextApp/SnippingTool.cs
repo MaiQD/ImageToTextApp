@@ -75,7 +75,7 @@ namespace ImageToTextApp
                 e.Graphics.FillRectangle(br, new Rectangle(x1, 0, x2 - x1, y1));
                 e.Graphics.FillRectangle(br, new Rectangle(x1, y2, x2 - x1, this.Height - y2));
             }
-            using (Pen pen = new Pen(Color.Red, 3)) {
+            using (Pen pen = new Pen(Color.Red, 1)) {
                 e.Graphics.DrawRectangle(pen, rcSelect);
             }
         }

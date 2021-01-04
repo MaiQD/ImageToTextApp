@@ -130,7 +130,8 @@ namespace ImageToTextApp
 			// getFromClipboardToolStripMenuItem
 			// 
 			this.getFromClipboardToolStripMenuItem.Name = "getFromClipboardToolStripMenuItem";
-			this.getFromClipboardToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+			this.getFromClipboardToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
+			this.getFromClipboardToolStripMenuItem.Size = new System.Drawing.Size(270, 26);
 			this.getFromClipboardToolStripMenuItem.Text = "Get from clipboard";
 			this.getFromClipboardToolStripMenuItem.Click += new System.EventHandler(this.getFromClipboardToolStripMenuItem_Click);
 			// 
@@ -138,8 +139,8 @@ namespace ImageToTextApp
 			// 
 			this.cropFromScreenToolStripMenuItem.Name = "cropFromScreenToolStripMenuItem";
 			this.cropFromScreenToolStripMenuItem.ShortcutKeyDisplayString = "";
-			this.cropFromScreenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.S)));
-			this.cropFromScreenToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
+			this.cropFromScreenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+			this.cropFromScreenToolStripMenuItem.Size = new System.Drawing.Size(270, 26);
 			this.cropFromScreenToolStripMenuItem.Text = "Crop from screen";
 			this.cropFromScreenToolStripMenuItem.Click += new System.EventHandler(this.cropFromScreenToolStripMenuItem_Click);
 			// 
@@ -153,7 +154,7 @@ namespace ImageToTextApp
 			this.exportToTextToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(1)), true);
 			this.exportToTextToolStripMenuItem.Name = "exportToTextToolStripMenuItem";
 			this.exportToTextToolStripMenuItem.ShortcutKeyDisplayString = "";
-			this.exportToTextToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.E)));
+			this.exportToTextToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
 			this.exportToTextToolStripMenuItem.Size = new System.Drawing.Size(120, 24);
 			this.exportToTextToolStripMenuItem.Text = "&Export to text";
 			this.exportToTextToolStripMenuItem.Click += new System.EventHandler(this.exportToTextToolStripMenuItem_Click);
@@ -205,6 +206,7 @@ namespace ImageToTextApp
 			// copyToClipboardToolStripMenuItem
 			// 
 			this.copyToClipboardToolStripMenuItem.Name = "copyToClipboardToolStripMenuItem";
+			this.copyToClipboardToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
 			this.copyToClipboardToolStripMenuItem.Size = new System.Drawing.Size(86, 24);
 			this.copyToClipboardToolStripMenuItem.Text = "Copy text";
 			this.copyToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyToClipboardToolStripMenuItem_Click);
